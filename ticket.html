@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Pridi"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/icon.png" />
+    <link rel="stylesheet" href="style-ticket.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Ticket</title>
+  </head>
+  <body>
+    <header class="header">
+      <a href="landing-page.html">
+        <div class="logo"></div>
+      </a>
+      <div class="navbar">
+        <div class="menu">
+          <a href="landing-page.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="ticket.html" class="active">Ticket</a>
+          <a href="faq.html">FaQ</a>
+        </div>
+      </div>
+      <div class="signup">
+        <a href="sign-up.html">Sign Up</a>
+      </div>
+    </header>
+    <div class="stage"></div>
+
+    <!--Ticket Reservation Form-->
+    <div class="form-container">
+      <h1>Konkret Tickets <span>Reservation Form</span></h1>
+
+      <form id="ticketForm">
+        <div class="form-section name-section">
+          <label for="firstName">Name</label>
+          <div class="name-inputs">
+            <input
+              type="text"
+              id="firstName"
+              placeholder="First Name"
+              required
+            />
+            <input type="text" id="lastName" placeholder="Last Name" required />
+          </div>
+        </div>
+
+        <div class="form-section email-section">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="example@email.com"
+            required
+          />
+        </div>
+
+        <div class="form-section seating-section">
+          <label for="seating">Seating Plan</label>
+          <select id="seating">
+            <option value="Cat1">Cat 1</option>
+            <option value="Cat2">Cat 2</option>
+            <option value="Cat3">Cat 3</option>
+            <option value="Cat4">Cat 4</option>
+            <option value="Cat5">Cat 5</option>
+            <option value="Cat6">Cat 6</option>
+          </select>
+        </div>
+
+        <div class="form-section tickets-section">
+          <label for="tickets">Number of Tickets</label>
+          <div class="ticket-control">
+            <button type="button" id="decrease">-</button>
+            <input type="number" id="tickets" value="1" min="1" />
+            <button type="button" id="increase">+</button>
+          </div>
+        </div>
+
+        <button type="submit" class="reserve-button">Reserve Now</button>
+      </form>
+
+      <div
+        id="bookingInfo"
+        style="margin-top: 40px; color: white; display: none"
+      ></div>
+
+      <script languange="JavaScript">
+        const decreaseButton = document.getElementById("decrease");
+        const increaseButton = document.getElementById("increase");
+        const ticketsInput = document.getElementById("tickets");
+        const seatingSelect = document.getElementById("seating");
+        const firstNameInput = document.getElementById("firstName");
+        const lastNameInput = document.getElementById("lastName");
+        const emailInput = document.getElementById("email");
+        const bookingInfo = document.getElementById("bookingInfo");
+
+        const ticketPrices = {
+          Cat1: 2950000,
+          Cat2: 2550000,
+          Cat3: 1950000,
+          Cat4: 1750000,
+          Cat5: 1500000,
+          Cat6: 1050000,
+        };
+
+        decreaseButton.addEventListener("click", () => {
+          let currentValue = parseInt(ticketsInput.value);
+          if (currentValue > 1) {
+            ticketsInput.value = currentValue - 1;
+          }
+        });
+
+        increaseButton.addEventListener("click", () => {
+          let currentValue = parseInt(ticketsInput.value);
+          ticketsInput.value = currentValue + 1;
+        });
+
+        document
+          .getElementById("ticketForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            const firstName = firstNameInput.value;
+            const lastName = lastNameInput.value;
+            const seating = seatingSelect.value;
+            const numberOfTickets = ticketsInput.value;
+
+            const pricePerTicket = ticketPrices[seating];
+            const totalPrice = pricePerTicket * numberOfTickets;
+
+            // Display booking information
+            bookingInfo.style.display = "block";
+            bookingInfo.innerHTML = `
+                <h2>Booking Successful!</h2>
+                <p>Name: ${firstName} ${lastName}</p>
+                <p>Seating: ${seating}</p>
+                <p>Number of Tickets: ${numberOfTickets}</p>
+                <p>Total Price: IDR ${totalPrice.toLocaleString()}</p>
+            `;
+          });
+      </script>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h2>Our Socials</h2>
+          <div class="social-buttons">
+            <a href="#" class="social-btn" aria-label="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#" class="social-btn" aria-label="Instagram">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="social-btn" aria-label="YouTube">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+          </div>
+        </div>
+        <nav class="footer-nav">
+          <ul>
+            <li><a href="#">TERMS & CONDITIONS</a></li>
+            <li><a href="#">PRIVACY POLICY</a></li>
+          </ul>
+        </nav>
+        <p class="copyright">2024© KonKret, inc</p>
+      </div>
+    </footer>
+  </body>
+</html>
